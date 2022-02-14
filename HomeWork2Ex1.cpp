@@ -8,6 +8,8 @@
 #include <forward_list>
 #include <cstdlib>
 #include <algorithm>
+#include <stdlib.h>
+#include <time.h>
 
 using namespace std::chrono;
 #define RANGE(container) container.begin(), container.end() //макрос
@@ -38,6 +40,7 @@ public:
 };
 
 int main() {
+    std::srand ( time ( nullptr ) );
     const int n = 10000;
 
     std::array<int, n> array;
