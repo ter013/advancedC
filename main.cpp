@@ -1,8 +1,15 @@
+
 #include <iostream>
 #include <chrono>
 #include <cmath>
 #include <vector>
+#include <array>
+#include <deque>
+#include <list>
+#include <iterator>
+#include <algorithm>
 using namespace std::chrono;
+
 
 template<typename T>
 class Timer {
@@ -28,7 +35,10 @@ public:
     }
 
 };
+
+
 int main() {
+
     double result = 0.;
     {
         //три цикла с остановкой после первого и возобновлением после второго
@@ -47,5 +57,9 @@ int main() {
 
     }
     std::cout << "Resutl is " << result << std::endl;
+
+
+
+
     return 0;
 }
