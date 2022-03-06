@@ -78,13 +78,8 @@ int main() {
     std::cout << "5. Number of odd numbers in P1: ";
     std::cout << odd_numbers <<std::endl;
 
-//    int min_P1 = P1[0], max_P1 = P1[0]; // это для несортированного массива
-//    for (int i = 1; i < P1.size(); i++) {
-//        if (P1[i] > max_P1) {max_P1 = P1[i];}
-//        if (P1[i] < min_P1) {min_P1 = P1[i];}
-//    }
-    int min_P1 = *P1.begin(); int max_P1 = *(P1.end() - 1);
-    std::cout << "6. Minimum number in P1: " << min_P1 << ", " << "Maximum number in P1: " << max_P1 << std::endl;
+
+    std::cout << "6. Minimum number in P1: " << *std::min_element(RANGE(P1)) << ", " << "Maximum number in P1: " << *std::max_element(RANGE(P1)) << std::endl;
 
 
     std::cout << "7. Prime numbers in P1: ";
@@ -96,7 +91,7 @@ int main() {
         }
     }
     std::cout << std::endl;
-
+    std::cout << "7. Prime number with find_if: " << *std::find_if(RANGE(P1), [](auto x){return Prime(x);}) << std::endl;
 
     std::transform(RANGE(P1), P1.begin(), [](auto  x){return x * x;});
     std::cout << "8. Replacing numbers in P1 with squares: ";
@@ -114,15 +109,18 @@ int main() {
     std::transform(P2.begin(), std::next(std::begin(P2), std::size(P2) / 3), P2.begin(), [](auto x){return 1;});
     std::cout << "11. Replacing the first few numbers P2 with the number 1: " << P2 << std::endl;
 
-    std::vector<int> P3;// хотел как-то через std::transform, не вышло
-    auto a = P1.begin();
-    auto b = P2.begin();
-    for (int i = 0; i < std::size(P1); i++) {
-        P3.push_back(*a - *b);
-        a++;
-        b++;
-    }
+    std::vector<int> P3;// теперь через std::transform
+//    auto a = P1.begin();
+//    auto b = P2.begin();
+//    for (int i = 0; i < std::size(P1); i++) {
+//        P3.push_back(*a - *b);
+//        a++;
+//        b++;
+//    }
+    std::transform(P1.begin(), P1.end(), P2.begin(), std::back_inserter(P3), [](auto x, auto y) {return x - y;});
     std::cout << "12. Sequence P3 as the difference between P1 and P2: " << P3 << std::endl;
+
+
     std::transform(RANGE(P3), P3.begin(), [](auto x){if (x < 0) {return  0;} else{return  x;}});
     std::cout << "13. Replacing each negative element in the P3 with zero: " << P3 << std::endl;
 
@@ -151,17 +149,19 @@ int main() {
     std::merge(P1.begin(),  P1.end(), P2.begin(), P2.end(), std::back_inserter(P4), [](auto x, auto y){return  x < y;});
     std::cout << "18. Creation of the P4 sequence as a merger of P1 and P2: " << P4 << std::endl;
 
-    auto first = P4.begin();// итератор на место первой единицей
-    auto second = P4.begin();// итератор на место после последней единицы
-    while(*first != 1) {//я использую тот факт, что в P2 всегда есть единицы, а значит и в P4
-        first++;
-    }
-    second = first;
-    while(*second == 1) {
-        second++;
-    }
-    std::cout << "19. Determination of the range for the ordered insertion of the number 1 in P4 (*first, *(first - 1), *second(-1), *second): ";
-    std::cout << *first << " " << *(first - 1) << " " << *(second - 1) << " " << *second << std::endl;
+//    auto first = P4.begin();// итератор на место первой единицей
+//    auto second = P4.begin();// итератор на место после последней единицы
+//    while(*first != 1) {//я использую тот факт, что в P2 всегда есть единицы, а значит и в P4
+//        first++;
+//    }
+//    second = first;
+//    while(*second == 1) {
+//        second++;
+//    }
+    std::cout << "19. Determination of the range for the ordered insertion of the number 1 in P4 : " <<
+    *std::equal_range(RANGE(P4), 1).first << " " << *std::equal_range(RANGE(P4), 1).second << std::endl;
+
+    //std::cout << *first << " " << *(first - 1) << " " << *(second - 1) << " " << *second << std::endl;
     std::cout << "20. All sequences:" << std::endl;
     std::cout << "P1: " << P1 << std::endl;
     std::cout << "P2: " << P2 << std::endl;
