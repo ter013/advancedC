@@ -30,7 +30,7 @@ add_executable(seven Lesson7.cpp)
 add_executable(seven1  Lesson71.cpp)
 add_executable(eight Lesson8.cpp)
 add_executable(nine HomeWork6Ex1.cpp)
-add_executable(ten HomeWork6Ex2.cpp)
+add_executable(ten1 HomeWork6Ex2.cpp)
 
 target_link_libraries(seven ws2_32)
 target_link_libraries(seven1 ws2_32)
